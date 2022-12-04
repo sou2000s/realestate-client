@@ -1,7 +1,10 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import Card from '../Components/Card';
 
 const Home = () => {
+const [houses , setHouses] = useState([])
+
 
     const handleSearch = (e) =>{
         e.preventDefault()
@@ -26,11 +29,15 @@ const Home = () => {
             body: JSON.stringify(filter)
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data =>{
+            console.log(data);
+            setHouses(data)
+        } )
+
     }
     return (
         <div>
-           <h1 className='text-blue-500 text-4xl ml-80'>Search Properties </h1>
+           <h1 className='text-black text-4xl ml-28'>Search Properties for rent </h1>
            <form onSubmit={handleSearch} className='flex justify-evenly mt-9'> 
               <div>
               <label htmlFor="">Location</label>
@@ -58,10 +65,16 @@ const Home = () => {
                 </select>
               </div>
               <div>
-               <button className='btn btn-primary' type='submit'>Search</button>
+               <button className='btn btn-primary bg-[#5f5fc9] text-white' type='submit'>Search</button>
              
               </div>
            </form>
+
+          <div className='flex justify-center '>
+          <div className='mt-28 grid gap-6 grid-cols-3 '>
+            {houses.map(house => <Card data={house} key={house._id}/>)}
+           </div>
+          </div>
         </div>
     );
 };

@@ -42,9 +42,9 @@ const Navbar = () => {
             <li><a>Mange Property</a></li>
           </ul>
         </div>
-        <div className="navbar-end">
-          <a className="btn">Login </a>
-          <a className="btn">Sign up</a>
+        <div className="navbar-end ">
+          <button className='mr-6  bg-[#f8f8ff] text-[#7f7fe5] p-3 rounded-lg'>Login</button>
+          <button className='bg-[#8487ef] text-white p-3 rounded-lg'>Sign up</button>
         </div>
       </div>
     );
