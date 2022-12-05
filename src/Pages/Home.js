@@ -42,7 +42,7 @@ console.log(currentDate);
             propertyType: SelectPropertyType
         }
 
-        fetch('http://localhost:5000/houses' , {
+        fetch('https://realestate-server-nu.vercel.app' , {
          method: "PUT",    
          headers: {
                 'content-type' : 'application/json'
