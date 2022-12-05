@@ -1,10 +1,31 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import Card from '../Components/Card';
 
 const Home = () => {
 const [houses , setHouses] = useState([])
 
+
+
+
+
+// const {data: allhouses , } = useQuery({
+//     queryKey:['allhouses'],
+//     queryFn: async()=>{
+//         const res = await fetch('http://localhost:5000/allHousess')
+//         const data = await res.json()
+//         return data;
+//     }
+// })
+
+const date = new Date();
+let day = date.getDate();
+let month = date.getMonth() + 1;
+let year = date.getFullYear();
+
+let currentDate = `${year}-${month}-${day}`
+console.log(currentDate);
 
     const handleSearch = (e) =>{
         e.preventDefault()
@@ -30,7 +51,10 @@ const [houses , setHouses] = useState([])
         })
         .then(res => res.json())
         .then(data =>{
-            console.log(data);
+            console.log(data.length);
+             if(!data.length){
+              setHouses([])
+             }
             setHouses(data)
         } )
 
@@ -41,11 +65,19 @@ const [houses , setHouses] = useState([])
            <form onSubmit={handleSearch} className='flex justify-evenly mt-9'> 
               <div>
               <label htmlFor="">Location</label>
-              <input name='location' type="text" placeholder="Type here" className="input input-bordered input-info w-full max-w-xs" />
+              <select  name='location' className="select select-info w-full max-w-xs">
+                <option>New york</option>
+                <option>Canada</option>
+                <option>Los angle</option>
+                <option>Italy</option>
+                <option>London</option>
+                <option>Uk</option>
+            
+                </select>
               </div>
               <div>
               <label htmlFor="">When</label>
-              <input name='when' type="date" placeholder="Type here" className="input input-bordered input-info w-full max-w-xs" />
+              <input name='when' min="2022-12-05" max="2022-12-10" type="date" placeholder="Type here" className="input input-bordered input-info w-full max-w-xs" />
               </div>
               <div>
               <label htmlFor="">Price</label>
@@ -64,7 +96,7 @@ const [houses , setHouses] = useState([])
                 <option>Flat</option>
                 </select>
               </div>
-              <div>
+              <div className='mt-6'>
                <button className='btn btn-primary bg-[#5f5fc9] text-white' type='submit'>Search</button>
              
               </div>
@@ -72,9 +104,10 @@ const [houses , setHouses] = useState([])
 
           <div className='flex justify-center '>
           <div className='mt-28 grid gap-6 grid-cols-3 '>
-            {houses.map(house => <Card data={house} key={house._id}/>)}
+            { houses.map(house => <Card data={house} key={house._id}/>)  }
            </div>
           </div>
+        
         </div>
     );
 };
